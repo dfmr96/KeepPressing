@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-namespace KeepPressing.Core
+namespace Core
 {
     /// <summary>
     /// Interactive numeric button for the code input panel.
@@ -173,7 +174,7 @@ namespace KeepPressing.Core
 
             foreach (var interactor in interactors)
             {
-                if (interactor is XRBaseControllerInteractor controllerInteractor)
+                if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controllerInteractor)
                 {
                     controllerInteractor.SendHapticImpulse(hapticIntensity, hapticDuration);
                 }

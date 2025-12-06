@@ -127,7 +127,7 @@ namespace Core
                 isRotating = false;
 
                 // Snap to final rotation
-                valveTransform.localRotation = Quaternion.Euler(0, 0, 180f);
+                valveTransform.localRotation = Quaternion.Euler(0, 90, 180f);
 
                 // Set particle emission to zero
                 SetParticleEmissionToZero();
@@ -144,7 +144,7 @@ namespace Core
                 float curveValue = rotationCurve.Evaluate(rotationProgress);
                 float currentAngle = Mathf.Lerp(0f, 180f, curveValue);
 
-                valveTransform.localRotation = Quaternion.Euler(0, 0, currentAngle);
+                valveTransform.localRotation = Quaternion.Euler(0, 90, currentAngle);
 
                 // Update particle emission rates (decrease from initial to 0)
                 UpdateParticleEmission(curveValue);

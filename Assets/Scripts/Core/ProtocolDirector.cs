@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace Core
 {
@@ -23,6 +24,10 @@ namespace Core
         public UnityEvent OnCodeCorrect;
         public UnityEvent OnCodeIncorrect;
         public UnityEvent OnTimeExpired;
+        
+        [Header("Door")]
+        [SerializeField] private GameObject door;
+        private int sphereCount = 0;
 
         public float GetDefaultTime() => defaultTime;
         public float GetReducedTime() => reducedTime;
@@ -91,6 +96,15 @@ namespace Core
                 {
                     renderer.material = activeMaterial;
                     Debug.Log($"✔ [Director] Esfera {sphere.name} activada");
+                    sphereCount++;
+                    if (sphereCount == 2)
+                    {
+                        countdownTimer.SwitchToReducedTime();
+                    }
+                    if (sphereCount == 3)
+                    {
+                        door.GetComponent<OpenDoor>().StartRotateY(door.transform, 90f, 0f, 18f);
+                    }
                     return;
                 }
             }
@@ -108,6 +122,7 @@ namespace Core
         {
             Debug.Log("⏱ [Director] Tiempo agotado - GAME OVER");
             OnTimeExpired?.Invoke();
+            SceneLoader.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

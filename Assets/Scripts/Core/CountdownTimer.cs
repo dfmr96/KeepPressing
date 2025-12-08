@@ -10,6 +10,7 @@ namespace Core
 
         private float currentTime;
         private bool running;
+        private bool reducedTime = false;
 
         private void Start()
         {
@@ -36,7 +37,14 @@ namespace Core
 
         public void ResetToDefault()
         {
-            currentTime = director.GetDefaultTime();
+            if (!reducedTime)
+            {
+                currentTime = director.GetDefaultTime();
+            }
+            else
+            {
+                currentTime = director.GetReducedTime();
+            }
             running = true;
         }
 
@@ -44,6 +52,7 @@ namespace Core
         {
             currentTime = director.GetReducedTime();
             running = true;
+            reducedTime = true;
         }
 
         private void UpdateDisplay()
